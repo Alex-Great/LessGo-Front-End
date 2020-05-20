@@ -1,0 +1,354 @@
+<template>
+    <div class="main-body">
+        <div :style="giveReviewFlag?'filter: blur(5px)': ''">
+            <img :src="main_bk_img" class="main_img" />
+            <dropdownMenu @reverse="reverse" />
+            <!-- <div class="go-title">
+                <div class="col-xs-6 go-title-margin" style="background: #eb5557">
+                    <span style="color: #f4a1a2">GQ</span>
+                    <span style="color: white">Pool</span>
+                </div>
+                <div class="col-xs-8 col-xs-offset-2 go-title-margin" style="padding: 3px">
+                    <span style="color: #eb5557">GQ</span>
+                    <span>Experiences</span>
+                </div>
+                <div class="col-xs-8 go-title-margin">
+                    <span style="color: #eb5557">GQ</span>
+                    <span>FIFA&nbsp;22</span>
+                </div>
+            </div> -->
+
+            <!-- search area -->
+            <div class="searchArea" :style="reserveFlag? 'margin-top: 45px; box-shadow: 0px -6px 10px #d9e7e5;': ''">
+                <span class="search-title">
+                    Where do you want to go?
+                </span>
+                <span v-if="!activeFlag" class="trips-head" @click="showTrips">
+                    Popular trips
+                </span>
+
+                <!-- popular trips area -->
+                <div v-if="!activeFlag" class="trips-area">
+                    <!-- posted trips -->
+                    <VueSlickCarousel :arrows="true" :dots="true" :variableWidth="true">
+                        <div v-for="post in postTrips" class="amman"  :style="{'background': 'url(' + post.image + ')'}">
+                            <div class="trip-area-title">
+                                <span>
+                                    {{ post.points[0].json_address.province }}
+                                </span>
+                                <arrowIcon :size="10" :color="'#707070'" />
+                                <span>
+                                    {{ post.points[1].json_address.province }}
+                                </span>
+                                <span style="color: #9CD076; float: right; font-weight: bold;">
+                                    JD&nbsp;{{ post.payment }}
+                                </span>
+                            </div>
+                        </div>
+                    </VueSlickCarousel>
+                </div>
+
+                <!-- active ticket area -->
+                <span v-if="activeFlag" style="position: absolute; z-index: 2" class="trips-head" @click="showTrips">Active Trip</span>
+                <div v-if="activeFlag && !giveReviewFlag" style="margin-top: 25px">
+                    <profileTicketIcon v-for="data in currentData" :activeFlag="true" :data="data" @finish-trip="giveReview" />
+                </div>
+
+                <!-- search body -->
+                <div :style="activeFlag && !noactiveFlag?'margin-top: -50px': ''" class="search-body">
+                    <span class="some-span">Somewhere else?</span>
+                    <tripSearch @searchResult="result" />
+                </div>
+
+                <!-- button areas -->
+                <div class="button-area">
+                    <button class="search-btn" @click="searchNewTrip">
+                        <span>
+                            Search
+                        </span>
+                        <arrowUpIcon />
+                    </button>
+                    <button class="offer-ride" @click="offerRide">
+                        <carIcon :size="20" :color="'#D5E9E8'" style="margin-top: -3px;" />
+                        <span>Offer ride</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- give review section -->
+        <div class="review-page" v-if="giveReviewFlag">
+            <div class="virtual-bk"></div>
+            <div class="review-ticket">
+                <profileTicketIcon v-for="data in currentData" :reviewFlag="true" :data="data" :activeFlag="true" />
+
+                <!-- write review panel -->
+                <div class="write-review">
+                    <div style="text-align: center;">
+                        <div @click="starSelect(num.id)" class="star-area" v-for="num in greyRating" style="">
+                            <ratingStarIcon :size="20" :color="num.selected?'#e65a5b': 'grey'" />
+                        </div>
+                    </div>
+                    <input type="text" v-model="reviewText" placeholder="Write a review (optional)" />
+                    <div style="margin-bottom: 10px;">
+                        <span class="error" v-if="reviewTextError.state"> {{reviewTextError.message}} </span>
+                    </div>
+                    <button @click="setReview">Thanks!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- hide search area -->
+        <div>
+            <gmap-autocomplete
+                @place_changed="searchArea"
+                v-model="areaText"
+                @input="value = $event.target.value"
+            ></gmap-autocomplete>
+        </div>
+        <img v-if="loading_flag" class="loading-img" :src="loading_img" />
+    </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+import VueSlickCarousel from 'vue-slick-carousel';
+import 'vue-slick-carousel/dist/vue-slick-carousel.css';
+// optional style for arrows & dots
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css';
+import moment from 'moment';
+
+// import components for this
+import arrowIcon from '../../icon/ArrowIcon';
+import tripSearch from '../sections/TripSearch';
+import arrowUpIcon from '../../icon/ArrowUpIcon';
+import dropdownMenu from '../../icon/DropdownMenu';
+import profileTicketIcon from '../../icon/ProfileTicketIcon';
+import ratingStarIcon from '../../icon/RatingStarIcon';
+import carIcon from '../../icon/CarIcon.vue';
+
+class Error {
+    constructor (state = false, message = '') {
+        this.state = false;
+        this.message = '';
+    }
+}
+
+export default {
+    name: 'main',
+    data () {
+        return {
+            main_bk_img: '/static/img/landing-bg.png',
+            loading_img: process.env.ROUTE_BASE + 'static/svg/loading.gif',
+            test_img: process.env.ROUTE_BASE + 'static/img/amman.jpg',
+            from_town: '',
+            to_town: '',
+            date: '',
+            reserveFlag: false,
+            activeFlag: false,
+            currentData: null,
+            giveReviewFlag: false,
+            greyRating: [],
+            reviewText: '',
+            postTrips: null,
+            reviewTextError: new Error(),
+            areaText: '',
+            loading_flag: true,
+            noactiveFlag: false
+        };
+    },
+    components: {
+        arrowIcon,
+        tripSearch,
+        arrowUpIcon,
+        dropdownMenu,
+        profileTicketIcon,
+        ratingStarIcon,
+        carIcon,
+        VueSlickCarousel
+    },
+    methods: {
+        ...mapActions({
+            getAllUsers: 'auth/getAllUsers',
+            tripAsDriver: 'myTrips/tripAsDriver',
+            tripAsPassenger: 'myTrips/tripAsPassenger',
+            deleteAllTrips: 'userTrips/deleteAllTrips',
+            review: 'rates/vote'
+        }),
+        offerRide: function () {
+            this.$router.push({name: 'setCarAndId'});
+        },
+        searchNewTrip: function () {
+            let data = {
+                from_town: this.from_town,
+                to_town: this.to_town,
+                date: this.date
+            };
+
+            this.$router.push({name: 'searchResult', params: {data}});
+        },
+        result: function (obj) {
+            this.from_town = obj.from_town;
+            this.to_town = obj.to_town;
+            this.date = obj.date;
+        },
+        reverse: function () {
+            this.reserveFlag = !this.reserveFlag;
+        },
+        giveReview: function () {
+            this.giveReviewFlag = true;
+        },
+        starSelect: function (num) {
+            let flag = true;
+            this.greyRating.forEach(item => {
+                if (flag) {
+                    if (item.id === num) {
+                        item.selected = !item.selected;
+                        flag = false;
+                    } else {
+                        item.selected = true;
+                    }
+                } else {
+                    item.selected = false;
+                }
+            });
+        },
+        setReview: function () {
+            if (this.reviewText.length === 0) {
+                this.reviewTextError.state = true;
+                this.reviewTextError.message = 'You must review about your trip.';
+                return;
+            } else {
+                let ratingCount = 0;
+                this.greyRating.forEach(item => {
+                    if (item.selected) {
+                        ratingCount += 1;
+                    }
+                });
+
+                console.log('currentData', this.currentData);
+                let data = {
+                    'rating': 1,
+                    'commnet': this.reviewText,
+                    'trip_id': this.currentData[0].id,
+                    'user_id': this.currentData[0].user.id
+                };
+
+                this.review(data).then(response => {
+                    this.$router.push({name: 'messages'});
+                }).catch(err => {
+                    console.log('err', err);
+                });
+            }
+        },
+        showTrips: function () {
+            this.activeFlag = !this.activeFlag;
+        },
+        searchArea: function (place) {
+            console.log('place', place);
+        }
+    },
+    computed: {
+        ...mapGetters({
+            trips: 'myTrips/myTrips',
+            passengerTrips: 'myTrips/passengerTrips',
+            getOtherUsersTripsAsDriver: 'userTrips/driverTrip'
+        })
+    },
+    async mounted () {
+        this.deleteAllTrips();
+        await this.getAllUsers();
+        await this.tripAsDriver();
+        await this.tripAsPassenger();
+        this.loading_flag = false;
+
+        // save image for each trip
+        let postTripsData = this.getOtherUsersTripsAsDriver;
+        postTripsData.forEach(trip => {
+            trip['image'] = this.test_img;
+        });
+        this.postTrips = postTripsData;
+        this.postTrips.forEach(post => {
+            this.areaText = post.from_town;
+            console.log('areaText', this.areaText);
+        });
+        console.log('test_img', this.test_img);
+        console.log('postTrips', this.postTrips);
+        let currentDate = new Date();
+        let driverTrip = [];
+
+        this.trips.forEach(trip => {
+            if (trip.availability === 'true') { // active driver trip
+                driverTrip.push(trip);
+            }
+        });
+
+        this.passengerTrips.forEach(trip => {
+            if (trip.availability === 'true') { // active driver trip
+                driverTrip.push(trip);
+            }
+        });
+
+        // active current trip
+        this.currentData = driverTrip;
+        
+        this.activeFlag = true;
+        if (this.currentData.length !== 0) {
+            this.noactiveFlag = false;
+        } else {
+            this.noactiveFlag = true;
+        }
+
+        // set default rating
+        for (let i = 1; i <= 5; i++) {
+            this.greyRating.push({'id': i, 'selected': false});
+        }
+    },
+    watch: {
+        reviewText: function () {
+            this.reviewTextError.state = false;
+        }
+    }
+};
+</script>
+
+<style>
+    .main-body {
+        position: relative;
+    }
+    .main-body img {
+        width: 100%;
+        height: auto;
+    }
+    .go-title {
+        padding: 8px;
+        background: #dad8d8;
+        border: none;
+        border-radius: 20px;
+        position: absolute;
+        bottom: 6vh;
+        left: 5%;
+        width: 90%;
+        opacity: .9;
+    }
+    .go-title-margin {
+        border-radius: 20px;
+        text-align: center;
+        color: #000000;
+        padding: 3px;
+        font-weight: bold;
+    }
+    .go-title> :last-child {
+        margin-right: 0;
+        padding-left: 0;
+    }
+    .searchArea {
+        margin-top: -20px;
+        background: white;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        z-index: 3;
+        position: absolute;
+        width: 100%;
+    }
+</style>

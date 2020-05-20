@@ -1,0 +1,18 @@
+{
+    "communities": [
+        {
+            "id": 1,
+            "domain": "@bankaletihad.com",
+            "name": "Bank Al Etihad",
+            "title": "In at iaculis lorem. Praesent tempor diutum tellus ut molesite. Sed sed",
+            "img_url": "static/img/bank.png"
+        },
+        {
+        	"id": 2,
+        	"domain": "@gju.edu.jo",
+        	"name": "German Jordan University",
+        	"title": "In at iaculis lorem. Praesent tempor diutum tellus ut molesite. Sed sed",
+        	"img_url": "static/img/gju.jpg"
+        }
+    ]
+}

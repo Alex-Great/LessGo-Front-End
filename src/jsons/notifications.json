@@ -1,0 +1,40 @@
+{
+	"general": [
+		{
+			"title": "Ride request updates",
+			"compareKey": "ride-req"
+		},
+		{
+			"title": "Incoming messages",
+			"compareKey": "in-mess"
+		},
+		{
+			"title": "Ride status updates",
+			"compareKey": "ride-sta"
+		},
+		{
+			"title": "Promotional offers",
+			"compareKey": "promotional"
+		}
+	],
+	"driver": [
+		{
+			"title": "New ride request",
+			"compareKey": "new-ride"
+		},
+		{
+			"title": "Passenger cancellation",
+			"compareKey": "passenger"
+		}
+	],
+	"community": [
+		{
+			"title": "Community updates",
+			"compareKey": "community"
+		},
+		{
+			"title": "Membership updates",
+			"compareKey": "membership"
+		}
+	]
+}

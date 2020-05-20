@@ -1,0 +1,159 @@
+{
+    "searchTrips": [
+        {
+            "driver":
+            {
+                "driver_name": "Yousef H",
+                "rating": 0,
+                "driver_avatar": "/image/profile/driver2.png"
+            },
+            "trips":
+            {
+                "from_town": "Amman, Jordan",
+                "from_town_latlng": {
+                    "lat": 31.9539494,
+                    "lng": 35.910635
+                },
+                "to_town": "Madaba, Jordan",
+                "to_town_latlng": {
+                    "lat": 31.7193405,
+                    "lng": 35.7932432
+                },
+                "for": "male",
+                "created_at": "2020-06-12",
+                "updated_at": "2020-07-18",
+                "deleted_at": null,
+                "total_seats": 6,
+                "seat_price": 2.75,
+                "used_seats": 2,
+                "car_type": "lexus",
+                "description": "I wish for your joinning .",
+                "distance": "37.3",
+                "co2": "5.55",
+                "estimated_time": "42 m",
+                "preferences": [
+                    "Smoking", "Pets", "Luggage", "Speaking"
+                ],
+                "amenities": [
+                    "Wifi", "Snacks", "Charger", "Aux", "X-Comfort"
+                ]
+            },
+            "passengers": [
+                {
+                    "passenger_name": "Fionna P",
+                    "passenger_avatar": "/image/passengers/passenger4.png"
+                },
+                {
+                    "passenger_name": "Bianca J",
+                    "passenger_avatar": "/image/passengers/passenger5.png"
+                },
+                {
+                    "passenger_name": "Eliza H",
+                    "passenger_avatar": "/image/passengers/passenger3.png"
+                }
+            ]
+        },
+        {
+            "driver":
+            {
+                "driver_name": "Mariah C",
+                "rating": 3,
+                "driver_avatar": "/image/profile/driver2.png"
+            },
+            "trips":
+            {
+                "from_town": "Amman, Jordan",
+                "from_town_latlng": {
+                    "lat": 31.9539494,
+                    "lng": 35.910635
+                },
+                "to_town": "Madaba, Jordan",
+                "to_town_latlng": {
+                    "lat": 31.7193405,
+                    "lng": 35.7932432
+                },
+                "for": "female",
+                "created_at": "2020-02-10",
+                "updated_at": "2020-04-18",
+                "deleted_at": null,
+                "total_seats": 4,
+                "seat_price": 1.45,
+                "used_seats": 1,
+                "car_type": "lexus",
+                "description": "I wish for your joinning .",
+                "distance": "37.3",
+                "co2": "5.55",
+                "estimated_time": "42 m",
+                "preferences": [
+                    "Smoking", "Pets", "Luggage", "Speaking"
+                ],
+                "amenities": [
+                    "Wifi", "Snacks", "Charger", "Aux", "X-Comfort", "Sanitizer"
+                ]
+            },
+            "passengers": [
+                {
+                    "passenger_name": "Fionna P",
+                    "passenger_avatar": "/image/passengers/passenger4.png"
+                },
+                {
+                    "passenger_name": "Bianca J",
+                    "passenger_avatar": "/image/passengers/passenger5.png"
+                },
+                {
+                    "passenger_name": "Eliza H",
+                    "passenger_avatar": "/image/passengers/passenger3.png"
+                }
+            ]
+        },
+        {
+            "driver":
+            {
+                "driver_name": "James K",
+                "rating": 3,
+                "driver_avatar": "/image/profile/driver3.png"
+            },
+            "trips":
+            {
+                "from_town": "Jerash, Jordan",
+                "from_town_latlng": {
+                    "lat": 32.2746515,
+                    "lng": 35.8960765
+                },
+                "to_town": "Amman، Madaba Street، Madaba 11180, Jordan",
+                "to_town_latlng": {
+                    "lat": 31.776684,
+                    "lng": 35.80251519999999
+                },
+                "for": "female",
+                "created_at": "2020-11-01",
+                "updated_at": "2020-12-18",
+                "deleted_at": null,
+                "total_seats": 8,
+                "seat_price": 1.3,
+                "used_seats": 6,
+                "car_type": "Ford",
+                "description": "You will get more experiences if you entired with my trip.",
+                "distance": "66.1",
+                "co2": "9.90",
+                "estimated_time": "1h 9m",
+                "preferences": [
+                    "Smoking", "Pets", "Luggage"
+                ],
+                "amenities": [
+                    "Wifi", "Snacks", "X-Comfort"
+                ]
+            },
+            "passengers": [
+                {
+                    "passenger_name": "Fionna P",
+                    "passenger_avatar": "/image/passengers/passenger4.png"
+                },
+                {
+                    "passenger_name": "Bianca J",
+                    "passenger_avatar": "/image/passengers/passenger5.png"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+{
+    "drivers": [
+        {
+            "img": "/image/profile/driver1.png",
+            "name": "Driver1",
+            "message": "What is your name?"
+        },
+        {
+            "img": "/image/profile/driver2.png",
+            "name": "Driver2",
+            "message": "I am a driver!!!I am a driver!!!I am a driver!!!I am a driver!!!I am a driver!!!I am a driver!!!"
+        },
+        {
+            "img": "/image/profile/driver3.png",
+            "name": "Driver3",
+            "message": "I am a man!!!"
+        }
+    ],
+    "passengers": [
+        {
+            "img": "/image/profile/passenger1.png",
+            "name": "Isram R",
+            "message": "I love travel with co-wokers"
+        },
+        {
+            "img": "/image/profile/passenger2.png",
+            "name": "James K",
+            "message": "I am James K. I am a student from xxx university."
+        },
+        {
+            "img": "/image/profile/passenger3.png",
+            "name": "Stiven R",
+            "message": "I love travel with co-wokers, and I enjoy to travel with passengers sometimes."
+        },
+        {
+            "img": "/image/profile/passenger4.png",
+            "name": "Stiven R",
+            "message": "Nowadays, everybody works as home, due to coronavirus. So I worked at home, too."
+        }
+    ],
+    "supports": [
+        {
+            "name": "LessGo Team",
+            "title": "Hello LessGo"
+        },
+        {
+            "name": "Customer Care",
+            "title": "Hello Customer Care"
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "profile":
+        {
+            "reviews": 4,
+            "saved_distance": "42.3",
+            "saved_co2": "59.3",
+            "as_passenger_trips": "23",
+            "as_driver_trips": "15",
+            "preferences": [
+                "Smoking", "Pets", "Luggage", "Food", "Speaking", "Protection"
+            ]
+        }
+}
