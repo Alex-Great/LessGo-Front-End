@@ -21,7 +21,7 @@
             <!-- search area -->
             <div class="searchArea" :style="reserveFlag? 'margin-top: 4em !important; box-shadow: 0px -6px 10px #d9e7e5;': ''">
                 <span class="search-title">
-                    Where do you want to go?
+                    Where do you want to go? 
                 </span>
                 <span class="trips-head">
                     Popular trips

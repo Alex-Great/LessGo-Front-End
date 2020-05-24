@@ -25,10 +25,10 @@
 }
 .user-detail {
 	position: absolute;
-    top: 40px;
-    right: 18vw;
+    top: 20px;
+    right: 70px;
     font-size: 16px;
-    font-weight: unset ! important;
+	font-weight: unset ! important;
 }
 .user-detail strong {
 	font-weight: 600;
