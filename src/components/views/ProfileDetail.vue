@@ -7,7 +7,7 @@
                 <div class="img-profile-detail" v-imgSrc:profile="userData.image">
                 </div>
                 <div style="margin-left: 20px;">
-                    <h3>{{ userData.name }}</h3>
+                    <h3> " {{ userData.name }}"</h3> 
                     <div v-for="num in redRating" style="float: left; margin-right: 5px;">
                         <ratingStarIcon :size="10" :color="'#e65a5b'" />
                     </div>
