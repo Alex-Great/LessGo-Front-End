@@ -114,7 +114,7 @@ export default {
     .drop-menu {
         position: absolute !important;
         right: 20px;
-        top: 30px;
+        top: 10px;
         text-align: center;
         cursor: pointer;
         z-index: 10;
